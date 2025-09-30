@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* === Global Enhancements === */
+body {
+  @apply antialiased font-sans bg-gray-900 text-white;
+}
+
+/* === Hex Frame Styling === */
+.hex-frame {
+  clip-path: polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%);
+  box-shadow: 0 0 20px #00f0ff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hex-frame:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px #00f0ff;
+}
+
+/* === Hero Background Animation === */
+.hero-bg {
+  background: linear-gradient(-45deg, #0f172a, #1e293b, #38bdf8, #0f172a);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+}
+.hero-overlay {
+  background: rgba(15, 23, 42, 0.6);
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* === Utility Classes for Reuse === */
+.badge-glow {
+  @apply px-2 py-1 rounded-full text-xs font-medium bg-cyan-600 text-white shadow-md;
+  box-shadow: 0 0 10px #00f0ff;
+  transition: transform 0.3s ease;
+}
+
+.badge-glow:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #00f0ff;
+}
+/* Glowing border effect */
+.glow-border {
+  border: 2px solid #00f0ff;
+  box-shadow: 0 0 12px #00f0ff;
+  transition: box-shadow 0.3s ease;
+}
+
+.glow-border:hover {
+  box-shadow: 0 0 24px #00f0ff;
+}
+
+/* Floating particles (optional background layer) */
+@keyframes floatParticles {
+  0% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(-10px); opacity: 1; }
+  100% { transform: translateY(0); opacity: 0.6; }
+}
+
+.particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #00f0ff;
+  border-radius: 50%;
+  animation: floatParticles 4s ease-in-out infinite;
+}
