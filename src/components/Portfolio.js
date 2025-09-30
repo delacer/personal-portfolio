@@ -7,7 +7,7 @@ const projects = [
     title: 'Hospital Management System',
     description: 'Streamlined patient records, appointments, and role-based admin controls.',
     tags: ['React', 'CSS', 'Node js', 'Express', 'MongoDB Atlas'],
-    repo: 'https://github.com/delacer/hospital-management',
+    repo: 'https://github.com/delacer/hospital-management-app',
     image: '../assets/hospital.png',
     featured: false,
   },
