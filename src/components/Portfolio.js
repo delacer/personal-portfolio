@@ -23,7 +23,7 @@ const projects = [
     title: 'Community Marketplace',
     description: 'Empowered local sellers with guided flows and secure transactions.',
     tags: ['Modular UI', 'JWT','React', 'Node js', 'Express', 'MongoDB'],
-    repo: 'https://github.com/delacer/community-marketplace-place',
+    repo: 'https://github.com/delacer/community-market-place',
     image: '../assets/community-marketplace.png',
     featured: false,
   },
