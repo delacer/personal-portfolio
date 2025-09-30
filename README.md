@@ -3,6 +3,7 @@
 Welcome to my personal portfolio, built to showcase the platforms, principles, and purpose that guide my work as a full-stack developer, system architect, and digital strategist. This site is more than a résumé—it's a reflection of stewardship, clarity, and legacy.
 
 ## 🚀 Live Preview
+https://elshebba-ruzvidzo.netlify.app
 
 ## 🛠️ Tech Stack
 
