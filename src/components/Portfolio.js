@@ -15,7 +15,7 @@ const projects = [
     title: 'Daily Scoop News App',
     description: 'Real-time news delivery with interactive UI and backend-driven state.',
     tags: ['React', 'Node', 'Express', 'MongoDB', 'MongoDB Atlas','Vite js'],
-    repo: 'https://github.com/delacer/daily-scoop',
+    repo: 'https://github.com/delacer/the-daily-scoop',
     image: '../assets/daily-scoop.png',
     featured: false,
   },
