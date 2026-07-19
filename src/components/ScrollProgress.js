@@ -1,99 +1,121 @@
-import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FaArrowUp } from 'react-icons/fa';
-import { toast } from 'react-hot-toast';
- import confetti from 'canvas-confetti';
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { FaArrowUp } from "react-icons/fa";
 
 const ScrollProgress = () => {
-  const [scroll, setScroll] = useState(0);
-  const [activeSection, setActiveSection] = useState('');
-  const [milestonesTriggered, setMilestonesTriggered] = useState([]);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const updateScroll = () => {
-      const scrolled = window.scrollY;
-      const height = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = height > 0 ? (scrolled / height) * 100 : 0;
-      setScroll(progress);
+    const updateProgress = () => {
+      const scrollTop = window.scrollY;
 
-      // Section syncing
-      const sections = ['home', 'about', 'skills', 'portfolio', 'contact'];
-      for (const id of sections) {
-        const el = document.getElementById(id);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= 100 && rect.bottom >= 100) {
-            setActiveSection(id);
-            break;
-          }
-        }
-      }
+      const height =
+        document.documentElement.scrollHeight -
+        window.innerHeight;
 
-      // Milestone triggers
-      const milestones = [25, 50, 75];
-      milestones.forEach((m) => {
-        if (progress > m && !milestonesTriggered.includes(m)) {
-          setMilestonesTriggered((prev) => [...prev, m]);
+      const percentage =
+        height > 0 ? (scrollTop / height) * 100 : 0;
 
-          // Trigger toast or confetti here
-         toast.success(`🎉 Milestone reached: ${m}%`);
-         confetti({ particleCount: 100, spread: 70 });
-
-          console.log(`🎯 Milestone reached: ${m}%`);
-        }
-      });
+      setProgress(percentage);
     };
 
-    window.addEventListener('scroll', updateScroll);
-    return () => window.removeEventListener('scroll', updateScroll);
-  }, [milestonesTriggered]);
+    window.addEventListener("scroll", updateProgress);
 
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+    updateProgress();
 
-  const barColor =
-    scroll > 80
-      ? 'bg-gradient-to-r from-green-400 via-lime-400 to-green-500'
-      : 'bg-gradient-to-r from-cyan-400 via-blue-400 to-cyan-500';
+    return () =>
+      window.removeEventListener("scroll", updateProgress);
+  }, []);
 
   return (
     <>
-      {/* Scroll Bar */}
-      <div className="fixed top-0 left-0 w-full h-1 bg-gray-800 z-50">
+      {/* Progress Bar */}
+
+      <div className="fixed left-0 top-0 z-[70] h-[2px] w-full bg-transparent">
+
         <motion.div
-          className={`h-full ${barColor} animate-pulse`}
-          initial={{ width: 0 }}
-          animate={{ width: `${scroll}%` }}
-          transition={{ ease: 'easeOut', duration: 0.2 }}
+          className="h-full bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400"
+          animate={{
+            width: `${progress}%`,
+          }}
+          transition={{
+            duration: 0.15,
+          }}
         />
+
       </div>
 
-      {/* Floating Label */}
-      <AnimatePresence>
-        {scroll > 5 && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="fixed top-2 right-4 text-xs bg-gray-900 text-white px-2 py-1 rounded shadow z-50"
-          >
-            {Math.round(scroll)}% — {activeSection.toUpperCase()}
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Scroll To Top */}
 
-      {/* Scroll-to-Top Button */}
       <AnimatePresence>
-        {scroll > 95 && (
+
+        {progress > 20 && (
+
           <motion.button
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
-            whileHover={{ scale: 1.1 }}
-            onClick={scrollToTop}
-            className="fixed bottom-6 right-6 bg-cyan-500 hover:bg-cyan-600 text-white p-3 rounded-full shadow-lg transition z-50"
+            initial={{
+              opacity: 0,
+              y: 30,
+              scale: 0.8,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+              scale: 1,
+            }}
+            exit={{
+              opacity: 0,
+              y: 30,
+              scale: 0.8,
+            }}
+            whileHover={{
+              scale: 1.08,
+              y: -4,
+            }}
+            whileTap={{
+              scale: 0.95,
+            }}
+            onClick={() =>
+              window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+              })
+            }
+                        className="
+              fixed
+              bottom-8
+              right-8
+              z-[70]
+              flex
+              h-14
+              w-14
+              items-center
+              justify-center
+              rounded-2xl
+              border
+              border-white/10
+              bg-white/[0.04]
+              text-white
+              backdrop-blur-xl
+              shadow-[0_10px_40px_rgba(0,0,0,.35)]
+              transition-all
+              duration-300
+              hover:border-cyan-400/40
+              hover:bg-cyan-500/10
+              hover:text-cyan-400
+            "
             aria-label="Scroll to top"
           >
-            <FaArrowUp />
+            <motion.div
+              animate={{
+                y: [0, -4, 0],
+              }}
+              transition={{
+                repeat: Infinity,
+                duration: 1.6,
+              }}
+            >
+              <FaArrowUp />
+            </motion.div>
           </motion.button>
         )}
       </AnimatePresence>

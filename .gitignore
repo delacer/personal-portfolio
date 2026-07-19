@@ -20,7 +20,6 @@ coverage/
 
 # 🖼️ Static & Generated
 *.png
-*.jpg
 *.jpeg
 *.svg
 *.webp
