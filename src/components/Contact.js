@@ -10,7 +10,6 @@ import {
   FaUser,
   FaRegCommentDots,
   FaBriefcase,
-  FaGlobe,
   FaArrowRight,
 } from "react-icons/fa";
 
