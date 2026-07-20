@@ -18,11 +18,6 @@ coverage/
 .env.test.local
 .env.production.local
 
-# 🖼️ Static & Generated
-*.png
-*.jpeg
-*.svg
-*.webp
 
 # 🧠 IDE & System Files
 .vscode/
