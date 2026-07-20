@@ -1,8 +1,7 @@
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import {
-  FaSpinner,
   FaEnvelope,
   FaMapMarkerAlt,
   FaGithub,
@@ -10,45 +9,42 @@ import {
   FaUser,
   FaRegCommentDots,
   FaBriefcase,
-  FaArrowRight,
+  FaWhatsapp,
 } from "react-icons/fa";
 
 const Contact = () => {
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
-
   const form = useRef();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = (e) => {
+  e.preventDefault();
 
-    setLoading(true);
+  const formData = new FormData(form.current);
 
-    const formData = new FormData(form.current);
+  const name = formData.get("name");
+  const email = formData.get("email");
+  const subject = formData.get("subject");
+  const message = formData.get("message");
 
-    try {
-      const response = await fetch(
-        "https://formspree.io/f/meolvogr",
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-          },
-          body: formData,
-        }
-      );
+  const text = `
+*New Portfolio Inquiry*
 
-      if (response.ok) {
-        setSubmitted(true);
-        form.current.reset();
-      }
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
+👤 Name: ${name}
+📧 Email: ${email}
+📌 Subject: ${subject}
 
+💬 Message:
+${message}
+`;
+
+  const phone = "27710020953"; 
+
+  window.open(
+    `https://wa.me/${phone}?text=${encodeURIComponent(text)}`,
+    "_blank"
+  );
+
+  form.current.reset();
+};
   return (
     <section
       id="contact"
@@ -385,35 +381,6 @@ const Contact = () => {
             <div className="rounded-[32px] border border-white/10 bg-white/[0.03] p-8 md:p-12 backdrop-blur-xl">
 
               <AnimatePresence mode="wait">
-
-                {submitted ? (
-
-                  <motion.div
-                    key="success"
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0 }}
-                    className="flex min-h-[520px] flex-col items-center justify-center text-center"
-                  >
-
-                    <div className="flex h-24 w-24 items-center justify-center rounded-full bg-cyan-500/10 text-5xl text-cyan-400">
-                      ✓
-                    </div>
-
-                    <h3 className="mt-8 text-4xl font-black">
-                      Message Sent!
-                    </h3>
-
-                    <p className="mt-6 max-w-lg leading-8 text-gray-400">
-                      Thank you for reaching out. I've received your message and
-                      will get back to you as soon as possible, usually within
-                      24 hours.
-                    </p>
-
-                  </motion.div>
-
-                ) : (
-
                   <motion.form
                     key="form"
                     ref={form}
@@ -491,38 +458,14 @@ const Contact = () => {
                       />
                     </div>
 
-                    {/* Button */}
-
-                    <motion.button
-                      whileHover={{
-                        scale: 1.02,
-                        boxShadow: "0 0 35px rgba(6,182,212,.35)",
-                      }}
-                      whileTap={{
-                        scale: 0.98,
-                      }}
-                      disabled={loading}
-                      type="submit"
-                      className="flex w-full items-center justify-center gap-4 rounded-2xl bg-cyan-500 px-8 py-5 font-bold uppercase tracking-[0.25em] text-black disabled:cursor-not-allowed disabled:opacity-70"
-                    >
-
-                      {loading ? (
-                        <>
-                          <FaSpinner className="animate-spin" />
-                          Sending...
-                        </>
-                      ) : (
-                        <>
-                          Send Message
-                          <FaArrowRight />
-                        </>
-                      )}
-
-                    </motion.button>
-
                   </motion.form>
-
-                )}
+                  <button
+  type="submit"
+  className="flex w-full items-center justify-center gap-4 rounded-2xl bg-cyan-500 px-8 py-5 font-bold uppercase tracking-[0.25em] text-black"
+>
+  Send on WhatsApp
+  <FaWhatsapp />
+</button>
 
               </AnimatePresence>
 
